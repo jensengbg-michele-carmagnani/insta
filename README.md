@@ -6,8 +6,8 @@ The application allow you to take picture and store them in a gallery, get geolo
 
 ## web-browser tested
 
-| Browser         | Able to download | Geolocation | MediaDevices | Notification | Offline     | Push        |
-| --------------- | ---------------- | ----------- | ------------ | ------------ | ----------- | ----------- | ----------- |
+| Browser | Able to download | Geolocation | MediaDevices | Notification | Offline  | Push    |
+| --------------- | ---------------- | ----------- | ------------ | ------------ | ----------- |----------- |
 | Desktop Chrome  | ✔️               | Inte testat | Inte testat  | Inte testat  | Inte testat | Inte testat | Inte testat |
 | Mobil Chrome    | ✔️               | Inte testat | Inte testat  | Inte testat  | Inte testat | Inte testat | Inte testat |
 | Desktop Firefox | ⛔               | Inte testat | Inte testat  | Inte testat  | Inte testat | Inte testat | Inte testat |
