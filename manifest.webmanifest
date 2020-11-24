@@ -1,0 +1,51 @@
+{
+  "short_name": "Insta",
+  "name": "Insta-gram",
+  "lang": "en",
+  "description": "With this app you can catch pictures, location of the pic, remove pic from the gallery.",
+  "background_color": "#e2e3e3",
+  "theme_color": "#f073dc",
+  "dir": "ltr",
+  "display": "standalone",
+  "orientation": "any",
+  "start_url": "/",
+  "icons": [
+   {
+    "src": "./img/inst-16.png",
+    "type": "image/png",
+    "sizes": "16x16"
+   },
+   {
+    "src": "./img/inst-24.png",
+    "type": "image/png",
+    "sizes": "24x24"
+   },
+   {
+    "src": "./img/inst-32.png",
+    "type": "image/png",
+    "sizes": "32x32"
+   },
+   {
+    "src": "./img/inst-64.png",
+    "type": "image/png",
+    "sizes": "64x64"
+   },
+   {
+    "src": "./img/inst-128.png",
+    "type": "image/png",
+    "sizes": "128x128"
+   },
+   {
+    "src": "./img/inst-256.png",
+    "type": "image/png",
+    "sizes": "256x256"
+   },
+   {
+    "src": "./img/inst-512.png",
+    "type": "image/png",
+    "sizes": "512x512"
+   }
+   
+  ],
+  "prefer_related_applications": "false"
+ }
