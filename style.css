@@ -12,6 +12,14 @@ body {
   align-items: center;
   flex-direction: column;
 }
+h2{
+  text-align: center;
+}
+.recording{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .gallery {
   width: 60%;
   height: 500px;
@@ -24,4 +32,10 @@ body {
 img {
   width: 100px;
   height: 100px;
+}
+button{
+  margin: 1rem;
+}
+.hidden{
+  display: none;
 }
