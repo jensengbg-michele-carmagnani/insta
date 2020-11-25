@@ -1,0 +1,25 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../mediadevice"
+		},
+		{
+			"path": "../notification"
+		},
+		{
+			"path": "../serviceWork"
+		},
+		{
+			"path": "../ex1"
+		},
+		{
+			"path": "../geolocation"
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "pwa-project"
+	}
+}

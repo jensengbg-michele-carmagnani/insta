@@ -75,13 +75,22 @@ function cameraSettings() {
     let photo = document.createElement("img");
     let imgUlr = URL.createObjectURL(blob);
     photo.src = imgUlr;
+
     findLocation((city, country) => {
-      gallery.innerHTML += `<div class="card-img"><img src="${imgUlr}" alt=""><p class="info-pic">${city}${country}</p></div>`;
+      gallery.innerHTML += `<div class="card-img"><img src="${imgUlr}" alt=""><p class="info-pic">${city}${country}</p><button class="remove">Delete</button></div>`;
+
+      let btnDelete = document.querySelector(".remove");
+      btnDelete.addEventListener("click", () => {
+        let cardToDelete = document.querySelector(".card-img");
+        cardToDelete.remove();
+      });
     });
-    // gallery.appendChild(photo);
   });
 
-  // recoding section-----
+  // btnDelete = document.querySelectorAll(".remove");
+  //  deletePhoto(btnDelete);
+
+  // Media recording section
 
   let mediaRecorder;
   btnStartRecording.addEventListener("click", async () => {
@@ -123,7 +132,18 @@ function cameraSettings() {
     }
   });
 }
-// getAddress
+// Delete photo
+
+// async function deletePhoto(btnDelete) {
+// for (let i = 0; i > btnDelete.length; i++)
+//     btnDelete[i].addEventListener("click", () => {
+//       // let cardToDelete = document.querySelector(".card-img").value();
+//       let cardToDelete = btnDelete[i].value;
+//       cardToDelete[i].remove();
+//     });
+//   }
+
+// Function to the adress of the pictures
 async function getAddress(lat, lon, onSuccess) {
   try {
     const url = `https://geocode.xyz/${lat},${lon}?json=1`;
@@ -143,8 +163,9 @@ async function getAddress(lat, lon, onSuccess) {
     alert("Not possible to retrieve to fatch the city and street ");
   }
 }
+
 let geo = navigator.geolocation;
-// geolocation
+//geolocation
 function findLocation(onSuccess) {
   if ("geolocation" in navigator) {
     geo.getCurrentPosition(
