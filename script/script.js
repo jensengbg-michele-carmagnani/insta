@@ -15,7 +15,6 @@ window.addEventListener("load", () => {
     cameraSettings();
   }
 });
-
 function cameraSettings() {
   let btnShowCamera = document.querySelector(".show-camera");
   let btnSnapshot = document.querySelector(".snapshot");
@@ -72,23 +71,35 @@ function cameraSettings() {
     let videoTrack = tracks[0];
     let capture = new ImageCapture(videoTrack);
     let blob = await capture.takePhoto();
-    let photo = document.createElement("img");
+    //let photo = document.createElement("img");
     let imgUlr = URL.createObjectURL(blob);
-    photo.src = imgUlr;
+    // photo.src = imgUlr;
 
     findLocation((city, country) => {
-      gallery.innerHTML += `<div class="card-img"><img src="${imgUlr}" alt=""><p class="info-pic">${city}${country}</p><button class="remove">Delete</button></div>`;
+      gallery.innerHTML += `<section class="card-img">
+                                <img class="snapShot" src="${imgUlr}" alt="">
+                                <article class="info-pic">
+                                    <p>City<br>${city}</p>
+                                    <p>Country<br>${country}</p>
+                                    <p> 
+                                      <a href="${imgUlr}" download class="downloadImg ">Download</a>
+                                    </p>
+                                </article>
+                                  <button class="remove">Delete</button>
+                              </section>`;
+      downloadImg = document.querySelector(".downloadImg");
+      downloadImg.download = "img.jpeg";
 
-      let btnDelete = document.querySelector(".remove");
-      btnDelete.addEventListener("click", () => {
-        let cardToDelete = document.querySelector(".card-img");
-        cardToDelete.remove();
-      });
+      // remove photos
+      let buttons = document.querySelectorAll(".remove");
+      // var lastBtn = buttons[buttons.length - 1];
+      buttons.forEach((btn) =>
+        btn.addEventListener("click", () => {
+          btn.parentElement.remove();
+        })
+      );
     });
   });
-
-  // btnDelete = document.querySelectorAll(".remove");
-  //  deletePhoto(btnDelete);
 
   // Media recording section
 
@@ -132,40 +143,34 @@ function cameraSettings() {
     }
   });
 }
-// Delete photo
-
-// async function deletePhoto(btnDelete) {
-// for (let i = 0; i > btnDelete.length; i++)
-//     btnDelete[i].addEventListener("click", () => {
-//       // let cardToDelete = document.querySelector(".card-img").value();
-//       let cardToDelete = btnDelete[i].value;
-//       cardToDelete[i].remove();
-//     });
-//   }
 
 // Function to the adress of the pictures
 async function getAddress(lat, lon, onSuccess) {
   try {
-    const url = `https://geocode.xyz/${lat},${lon}?json=1`;
+    const url = `https://api.opencagedata.com/geocode/v1/json?q=${lat}+${lon}&key=accf8ffee4454813b62676aeb9faa061`;
     const response = await fetch(url);
     const data = await response.json();
-    console.log("response from geolocation", data);
+    console.log(
+      "response from geolocation",
+      data.results[0].components.country
+    );
     if (data.error) {
       errorMsg.innerHTML = "not possible to retrieve the location";
     } else {
-      const city = data.city;
-      const country = data.country;
+      const city = data.results[0].components.city_district;
+      const country = data.results[0].components.country;
       onSuccess(city, country);
       console.log("location steet", city + " " + country);
       return city, country;
     }
   } catch (error) {
-    alert("Not possible to retrieve to fatch the city and street ");
+    alert("Not possible retrieve the city and street ");
   }
 }
 
+// Geolocation of the photo
 let geo = navigator.geolocation;
-//geolocation
+
 function findLocation(onSuccess) {
   if ("geolocation" in navigator) {
     geo.getCurrentPosition(
@@ -173,6 +178,7 @@ function findLocation(onSuccess) {
         let coords = pos.coords;
         let lat = coords.latitude;
         let lon = coords.longitude;
+        console.log("lat lon", lat, lon);
         getAddress(lat, lon, onSuccess);
       },
       (error) => {

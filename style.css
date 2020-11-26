@@ -6,11 +6,21 @@ body {
   width: 100vw;
   background-color: #e2e3e3;
 }
+h1,h2,h3,h4{
+  margin: 0;
+}
+video{
+  width: 320px;
+  height: 320px;
+}
 .camera {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+}
+.recording > button, .camera > button{
+  margin: .7rem;
 }
 h2{
   text-align: center;
@@ -21,21 +31,74 @@ h2{
   align-items: center;
 }
 .gallery {
-  width: 60%;
+
+  width: 100%;
   height: 500px;
   margin: auto;
   overflow: scroll;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 5px;
+  align-self: center;
+}
+.card-img{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  border: 1px solid gray;
+  padding: .3rem;
+  border-radius: 3rem;
+  width: 200px;
+  height: 300px;
+  background-color: #fff;
+  justify-self: center;
+}
+.info-pic{
+  margin-top: .3rem;
+  margin-bottom: .3rem;
+  background-color: rgb(240, 240, 240);
+  border-radius: .5rem;
+}
+.info-pic > p {
+  /* display: flex;
+  justify-content: center;
+  align-items: center; */
+  text-align: center;
+  
 }
 img {
   width: 100px;
   height: 100px;
+  border-radius: 999rem;
+  border: 2px solid rgb(26, 161, 8);
 }
-button{
-  margin: 1rem;
-}
+button {
+    box-shadow: 0px 10px 14px -7px #3e7327;
+    background:linear-gradient(to bottom, #77b55a 5%, #72b352 100%);
+    background-color:#77b55a;
+    border-radius:4px;
+    border:1px solid #4b8f29;
+    display:inline-block;
+    cursor:pointer;
+    color:#ffffff;
+    font-family:Arial;
+    font-size:13px;
+    font-weight:bold;
+    padding:6px 12px;
+    text-decoration:none;
+    text-shadow:0px 1px 0px #5b8a3c;
+  }
+  .button:hover {
+    background:linear-gradient(to bottom, #72b352 5%, #77b55a 100%);
+    background-color:#72b352;
+  }
+  .button:active {
+    position:relative;
+    top:1px;
+  }
+  
+
 .hidden{
   display: none;
 }
