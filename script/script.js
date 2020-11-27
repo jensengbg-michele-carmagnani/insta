@@ -10,11 +10,13 @@ if ("serviceWorker" in navigator) {
 }
 
 window.addEventListener("load", () => {
+  notifyMe();
   console.log("navigator", navigator);
   if ("mediaDevices" in navigator) {
     cameraSettings();
   }
 });
+
 function cameraSettings() {
   let btnShowCamera = document.querySelector(".show-camera");
   let btnSnapshot = document.querySelector(".snapshot");
@@ -65,14 +67,18 @@ function cameraSettings() {
       errorMsg.innerHTML = " No video awailable for pictures";
       return;
     }
+    if('ImageCapture' in window){
+
+      let tracks = stream.getTracks();
+      console.log("tracks", tracks);
+      let videoTrack = tracks[0];
+      let capture = new ImageCapture(videoTrack);
+      let blob = await capture.takePhoto();
+      let imgUlr = URL.createObjectURL(blob);
+    } else {
+
+    }
     //get the address function
-    let tracks = stream.getTracks();
-    console.log("tracks", tracks);
-    let videoTrack = tracks[0];
-    let capture = new ImageCapture(videoTrack);
-    let blob = await capture.takePhoto();
-    //let photo = document.createElement("img");
-    let imgUlr = URL.createObjectURL(blob);
     // photo.src = imgUlr;
 
     findLocation((city, country) => {
@@ -92,9 +98,9 @@ function cameraSettings() {
 
       // remove photos
       let buttons = document.querySelectorAll(".remove");
-      // var lastBtn = buttons[buttons.length - 1];
+
       buttons.forEach((btn) =>
-        btn.addEventListener("click", () => {
+        btn.addEventListener("click", async () => {
           btn.parentElement.remove();
         })
       );
@@ -144,7 +150,53 @@ function cameraSettings() {
   });
 }
 
-// Function to the adress of the pictures
+// notifications setting
+
+function notifyMe() {
+  console.log("you are in notify funk");
+  let notificationPermission = false;
+  
+  const btnAskPermission = document.querySelector(".askPermissionBtn");
+
+  // allow notification
+  btnAskPermission.addEventListener("click", async () => {
+    console.log("permission");
+    const answer = await Notification.requestPermission();
+    if (answer == "granted") {
+      notificationPermission = true;
+      console.log("notification permission Granted");
+    } else if (answer == "denied") {
+      console.log("Notification : user denied notification");
+    } else {
+      // default
+      console.log("Notification: user decline to answer");
+    }
+    //show notification
+    let btnShowNotification = document.querySelector(".showNotificationButton");
+    btnShowNotification.addEventListener("click", () => {
+      if (!notificationPermission) {
+        console.log("we do not have permission to show notification");
+        return;
+      }
+      const options = {
+        body: "Now you can recieve notification!",
+        icon: "./img/inst-512.png",
+      };
+      let notif = new Notification("Hello Michele", options);
+      navigator.serviceWorker.ready.then((reg) =>
+        reg.showNotification("Reminder", options)
+      );
+      notif.addEventListener("show", () => {
+        console.log("Show notification");
+      });
+      notif.addEventListener("click", () => {
+        console.log("user clicked on notification");
+      });
+    });
+  });
+}
+
+// Get adreass throughout the reverese geocoding
 async function getAddress(lat, lon, onSuccess) {
   try {
     const url = `https://api.opencagedata.com/geocode/v1/json?q=${lat}+${lon}&key=accf8ffee4454813b62676aeb9faa061`;

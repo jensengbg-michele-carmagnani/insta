@@ -14,36 +14,49 @@
     "src": "./img/inst-16.png",
     "type": "image/png",
     "sizes": "16x16"
+    
    },
    {
     "src": "./img/inst-24.png",
     "type": "image/png",
     "sizes": "24x24"
+    
    },
    {
     "src": "./img/inst-32.png",
     "type": "image/png",
     "sizes": "32x32"
+    
    },
    {
     "src": "./img/inst-64.png",
     "type": "image/png",
     "sizes": "64x64"
+    
    },
    {
     "src": "./img/inst-128.png",
     "type": "image/png",
     "sizes": "128x128"
+    
    },
    {
     "src": "./img/inst-256.png",
     "type": "image/png",
     "sizes": "256x256"
+    
    },
    {
     "src": "./img/inst-512.png",
     "type": "image/png",
     "sizes": "512x512"
+    
+   },
+   {
+    "src": "./img/inst-maskable.png",
+    "type": "image/png",
+    "sizes": "512x512",
+    "purpose": "any maskable"
    }
    
   ]
