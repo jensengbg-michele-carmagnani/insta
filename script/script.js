@@ -104,7 +104,7 @@ function cameraSettings() {
                                       <a href="${imgUlr}" download class="downloadImg ">Download</a>
                                     </p>
                                 </article>
-                                  <button class="remove">Delete</button>
+                                  <button class="remove btn-active-delete">Delete</button>
                               </section>`;
       downloadImg = document.querySelector(".downloadImg");
       downloadImg.download = "img.jpeg";
@@ -150,13 +150,11 @@ function cameraSettings() {
       // Använd gärna MP4 som fallback
       const url = URL.createObjectURL(blob);
       downloadLink.href = url;
-      downloadLink.classList.remove("hidden");
+      downloadLink.classList.toggle("hidden");
       downloadLink.download = "recording.webm";
 
-      
-      btnDownload.classList.toggle("hidden");
-      btnDownload.addEventListener("click", () => {
-        btnDownload.classList.toggle("hidden");
+      downloadLink.addEventListener("click", () => {
+        downloadLink.classList.toggle("hidden");
       });
     });
     mediaRecorder.start();
