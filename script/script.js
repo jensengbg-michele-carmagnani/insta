@@ -38,9 +38,17 @@ function cameraSettings() {
       const video = document.querySelector(".camera > .video-camera");
       video.srcObject = stream;
       btnShowCamera.disabled = true;
+      btnShowCamera.classList.remove("btn-active");
+      btnShowCamera.classList.add("btn-inactive");
       btnSnapshot.disabled = false;
+      btnSnapshot.classList.remove("btn-inactive");
+      btnSnapshot.classList.add("btn-active");
       btnStopCamera.disabled = false;
+      btnStopCamera.classList.remove("btn-inactive");
+      btnStopCamera.classList.add("btn-active");
       btnStartRecording.disabled = false;
+      btnStartRecording.classList.remove("btn-inactive");
+      btnStartRecording.classList.add("btn-active");
       btnStopRecording.disabled = true;
     } catch (e) {
       errorMsg.innerHTML = ("It is not possible to use the camera", e);
@@ -55,9 +63,17 @@ function cameraSettings() {
     let tracks = stream.getTracks();
     tracks.forEach((track) => track.stop());
     btnStopCamera.disabled = true;
+    btnStopCamera.classList.remove("btn-active");
+    btnStopCamera.classList.add("btn-inactive");
     btnShowCamera.disabled = false;
+    btnShowCamera.classList.remove("btn-inactive");
+    btnShowCamera.classList.add("btn-active");
     btnSnapshot.disabled = true;
+    btnSnapshot.classList.remove("btn-active");
+    btnSnapshot.classList.add("btn-inactive");
     btnStartRecording.disabled = true;
+    btnStartRecording.classList.remove("btn-active");
+    btnStartRecording.classList.add("btn-inactive");
     btnStopRecording.disabled = true;
   });
   btnSnapshot.addEventListener("click", async () => {
@@ -67,17 +83,14 @@ function cameraSettings() {
       errorMsg.innerHTML = " No video awailable for pictures";
       return;
     }
-    if('ImageCapture' in window){
 
-      let tracks = stream.getTracks();
-      console.log("tracks", tracks);
-      let videoTrack = tracks[0];
-      let capture = new ImageCapture(videoTrack);
-      let blob = await capture.takePhoto();
-      let imgUlr = URL.createObjectURL(blob);
-    } else {
+    let tracks = stream.getTracks();
+    console.log("tracks", tracks);
+    let videoTrack = tracks[0];
+    let capture = new ImageCapture(videoTrack);
+    let blob = await capture.takePhoto();
+    let imgUlr = URL.createObjectURL(blob);
 
-    }
     //get the address function
     // photo.src = imgUlr;
 
@@ -116,7 +129,11 @@ function cameraSettings() {
       return;
     }
     btnStartRecording.disabled = true;
+    btnStartRecording.classList.remove("btn-active");
+    btnStartRecording.classList.add("btn-inactive");
     btnStopRecording.disabled = false;
+    btnStopRecording.classList.remove("btn-inactive");
+    btnStopRecording.classList.add("btn-active");
     mediaRecorder = new MediaRecorder(stream);
     let chunks = [];
     mediaRecorder.addEventListener("dataavailable", (event) => {
@@ -135,13 +152,23 @@ function cameraSettings() {
       downloadLink.href = url;
       downloadLink.classList.remove("hidden");
       downloadLink.download = "recording.webm";
+
+      
+      btnDownload.classList.toggle("hidden");
+      btnDownload.addEventListener("click", () => {
+        btnDownload.classList.toggle("hidden");
+      });
     });
     mediaRecorder.start();
   });
   btnStopRecording.addEventListener("click", async () => {
     if (mediaRecorder) {
       btnStopRecording.disabled = true;
+      btnStartRecording.classList.remove("btn-inactive");
+      btnStartRecording.classList.add("btn-active");
       btnStartRecording.disabled = false;
+      btnStopRecording.classList.remove("btn-active");
+      btnStopRecording.classList.add("btn-inactive");
       mediaRecorder.stop();
       mediaRecorder = null;
     } else {
@@ -155,7 +182,7 @@ function cameraSettings() {
 function notifyMe() {
   console.log("you are in notify funk");
   let notificationPermission = false;
-  
+
   const btnAskPermission = document.querySelector(".askPermissionBtn");
 
   // allow notification
