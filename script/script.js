@@ -9,7 +9,17 @@ if ("serviceWorker" in navigator) {
     });
 }
 
+let btnShowCamera = document.querySelector(".show-camera");
+  let btnSnapshot = document.querySelector(".snapshot");
+  let btnStopCamera = document.querySelector(".stop-camera");
+  let errorMsg = document.querySelector(".error-msg");
+  let gallery = document.querySelector(".gallery");
+  let btnStartRecording = document.querySelector(".start-recording");
+  let btnStopRecording = document.querySelector(".stop-recording");
+  let downloadLink = document.querySelector(".download-link");
+  let btnChangeFacing = document.querySelector(".change-facing");
 window.addEventListener("load", () => {
+  
   console.log("navigator", navigator);
   if ("mediaDevices" in navigator) {
     cameraSettings();
@@ -19,15 +29,7 @@ window.addEventListener("load", () => {
 notifyPic();
 
 function cameraSettings() {
-  let btnShowCamera = document.querySelector(".show-camera");
-  let btnSnapshot = document.querySelector(".snapshot");
-  let btnStopCamera = document.querySelector(".stop-camera");
-  let errorMsg = document.querySelector(".error-msg");
-  let gallery = document.querySelector(".gallery");
-  let btnStartRecording = document.querySelector(".start-recording");
-  let btnStopRecording = document.querySelector(".stop-recording");
-  let downloadLink = document.querySelector(".download-link");
-  let btnChangeFacing = document.querySelector(".change-facing");
+  
 
   let stream;
   let facing = "environment";
@@ -65,10 +67,10 @@ function cameraSettings() {
 
   btnChangeFacing.addEventListener("click", () => {
     if (facing == "environment") {
-      (facing = "user"), (btnChangeFacing.innerHTML = "Show User");
+      (facing = "user"), (btnChangeFacing.innerHTML = "Show environment");
     } else {
       (facing = "environment"),
-        (btnChangeFacing.innerHTML = "Show environment ");
+        (btnChangeFacing.innerHTML = "Show User ");
     }
     btnStopCamera.click();
     btnShowCamera.click();
@@ -118,8 +120,8 @@ function cameraSettings() {
       gallery.innerHTML += `<section class="card-img">
                                 <img class="snapShot" src="${imgUrl}" alt="">
                                 <article class="info-pic">
-                                    <p>City<br>${city}</p>
-                                    <p>Country<br>${country}</p>
+                                    <p><span class="location-info">City</span><br>${city}</p>
+                                    <p><span class="location-info">Country</span><br>${country}</p>
                                     <p> 
                                       <a href="${imgUrl}" download class="downloadImg ">Download</a>
                                     </p>
@@ -216,8 +218,31 @@ function notifyPic() {
       // default
       console.log("Notification: user decline to answer");
     }
+    //show notification for recording
+    
+    btnStartRecording.addEventListener("click", async () => {
+      if (!notificationPermission) {
+        console.log("we do not have permission to show notification");
+        return;
+      }
 
-    //show notification
+      const options = {
+        body: "You are now recording!",
+        icon: "./img/inst-512.png",
+      };
+      let notif = new Notification("Hello Michele", options);
+      navigator.serviceWorker.ready.then((reg) =>
+        reg.showNotification("Reminder", options)
+      );
+      notif.addEventListener("show", () => {
+        console.log("Show notification");
+      });
+      notif.addEventListener("click", () => {
+        console.log("user clicked on notification");
+      });
+    });
+
+    //show notification for pic
     let btnSnapshotNotify = document.querySelector(".snapshot");
     btnSnapshotNotify.addEventListener("click", async () => {
       if (!notificationPermission) {

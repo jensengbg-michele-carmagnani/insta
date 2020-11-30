@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Texturina&display=swap");
 body {
   margin: 0;
   padding: 0;
@@ -5,12 +6,14 @@ body {
   height: 100vh;
   width: 100vw;
   background-color: #e2e3e3;
+  font-family: "Texturina", serif;
 }
 h1,
 h2,
 h3,
 h4 {
   margin: 0;
+  font-family: 'Texturina', serif;
 }
 video {
   width: 320px;
@@ -54,9 +57,13 @@ h2 {
   padding: 0.3rem;
   border-radius: 3rem;
   width: 200px;
-  height: 300px;
+  height: 350px;
   background-color: #fff;
   justify-self: center;
+}
+.location-info{
+  font-weight: 800;
+  font-size: large;
 }
 .info-pic {
   margin-top: 0.3rem;
@@ -77,8 +84,8 @@ img {
 /* buttons */
 .btn-active-delete {
   box-shadow: 3px 4px 0px 0px #8a2a21;
-  background: linear-gradient(to bottom, #c62d1f 5%, #f24437 100%);
-  background-color: #c62d1f;
+  background: linear-gradient(to bottom, #7b1fc6 5%, #378ef2 100%);
+  background-color: #c6781f;
   border-radius: 18px;
   border: 1px solid #d02718;
   display: inline-block;
@@ -93,7 +100,7 @@ img {
 
 .btn-active-delete:hover {
   background: linear-gradient(to bottom, #f24437 5%, #c62d1f 100%);
-  background-color: #f24437;
+  background-color: #f2aa37;
 }
 .btn-active-delete:active {
   position: relative;
@@ -101,11 +108,11 @@ img {
 }
 
 .btn-active {
-  box-shadow: inset 0px 1px 3px 0px #91b8b3;
-  background: linear-gradient(to bottom, #768d87 5%, #6c7c7c 100%);
-  background: #76c369;
+  box-shadow: inset 0px 1px 3px 0px #91a5b8;
+  background: linear-gradient(to bottom, #76828d 5%, #6c767c 100%);
+  background: #5f6fc7;
   border-radius: 5px;
-  border: 1px solid #36b48c;
+  border: 1px solid #3653b4;
   display: inline-block;
   cursor: pointer;
   color: #ffffff;
@@ -116,7 +123,7 @@ img {
   text-decoration: none;
 }
 .btn-active:hover {
-  background: linear-gradient(to bottom, #52b36a 5%, #77b55a 100%);
+  background: linear-gradient(to bottom, #8752b3 45%, #3c4ca8 100%);
   background-color: #72b352;
 }
 .btn-active:active {
