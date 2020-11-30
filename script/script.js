@@ -15,7 +15,7 @@ window.addEventListener("load", () => {
     cameraSettings();
   }
 });
-notifyMe();
+
 notifyPic();
 
 function cameraSettings() {
@@ -27,14 +27,18 @@ function cameraSettings() {
   let btnStartRecording = document.querySelector(".start-recording");
   let btnStopRecording = document.querySelector(".stop-recording");
   let downloadLink = document.querySelector(".download-link");
+  let btnChangeFacing = document.querySelector(".change-facing");
 
   let stream;
+  let facing = "environment";
 
   btnShowCamera.addEventListener("click", async () => {
     errorMsg.innerHTML = "";
     try {
       const md = navigator.mediaDevices;
-      stream = await md.getUserMedia({ video: { width: 320, height: 320 } });
+      stream = await md.getUserMedia({
+        video: { width: 320, height: 320, facingMode: facing },
+      });
 
       const video = document.querySelector(".camera > .video-camera");
       video.srcObject = stream;
@@ -51,10 +55,25 @@ function cameraSettings() {
       btnStartRecording.classList.remove("btn-inactive");
       btnStartRecording.classList.add("btn-active");
       btnStopRecording.disabled = true;
+      btnChangeFacing.classList.remove("btn-inactive");
+      btnChangeFacing.classList.add("btn-active");
+      btnChangeFacing.disabled = false;
     } catch (e) {
       errorMsg.innerHTML = ("It is not possible to use the camera", e);
     }
   });
+
+  btnChangeFacing.addEventListener("click", () => {
+    if (facing == "environment") {
+      (facing = "user"), (btnChangeFacing.innerHTML = "Show User");
+    } else {
+      (facing = "environment"),
+        (btnChangeFacing.innerHTML = "Show environment ");
+    }
+    btnStopCamera.click();
+    btnShowCamera.click();
+  });
+
   btnStopCamera.addEventListener("click", () => {
     errorMsg.innerHTML = "";
     if (!stream) {
@@ -76,6 +95,9 @@ function cameraSettings() {
     btnStartRecording.classList.remove("btn-active");
     btnStartRecording.classList.add("btn-inactive");
     btnStopRecording.disabled = true;
+    btnChangeFacing.classList.remove("btn-active");
+    btnChangeFacing.classList.add("btn-inactive");
+    btnChangeFacing.disabled = true;
   });
   btnSnapshot.addEventListener("click", async () => {
     errorMsg.innerHTML = "";
@@ -92,9 +114,6 @@ function cameraSettings() {
     let blob = await capture.takePhoto();
     let imgUrl = URL.createObjectURL(blob);
 
-    //get the address function
-    // photo.src = imgUlr;
-
     findLocation((city, country) => {
       gallery.innerHTML += `<section class="card-img">
                                 <img class="snapShot" src="${imgUrl}" alt="">
@@ -102,7 +121,7 @@ function cameraSettings() {
                                     <p>City<br>${city}</p>
                                     <p>Country<br>${country}</p>
                                     <p> 
-                                      <a href="${imgUlr}" download class="downloadImg ">Download</a>
+                                      <a href="${imgUrl}" download class="downloadImg ">Download</a>
                                     </p>
                                 </article>
                                   <button class="remove btn-active-delete">Delete</button>
@@ -178,51 +197,6 @@ function cameraSettings() {
 
 // notifications setting
 
-function notifyMe() {
-  console.log("you are in notify funk");
-  let notificationPermission = false;
-
-  const btnAskPermission = document.querySelector(".askPermissionBtn");
-
-  // allow notification
-  btnAskPermission.addEventListener("click", async () => {
-    console.log("permission");
-    const answer = await Notification.requestPermission();
-    if (answer == "granted") {
-      notificationPermission = true;
-      console.log("notification permission Granted");
-    } else if (answer == "denied") {
-      console.log("Notification : user denied notification");
-    } else {
-      // default
-      console.log("Notification: user decline to answer");
-    }
-
-    //show notification
-    let btnShowNotification = document.querySelector(".showNotificationButton");
-    btnShowNotification.addEventListener("click", () => {
-      if (!notificationPermission) {
-        console.log("we do not have permission to show notification");
-        return;
-      }
-      const options = {
-        body: "Now you can recieve notification!",
-        icon: "./img/inst-512.png",
-      };
-      let notif = new Notification("Hello Michele", options);
-      navigator.serviceWorker.ready.then((reg) =>
-        reg.showNotification("Reminder", options)
-      );
-      notif.addEventListener("show", () => {
-        console.log("Show notification");
-      });
-      notif.addEventListener("click", () => {
-        console.log("user clicked on notification");
-      });
-    });
-  });
-}
-
 function notifyPic() {
   console.log("you are in notify funk");
   let notificationPermission = false;
@@ -277,7 +251,9 @@ async function getAddress(lat, lon, onSuccess) {
     const data = await response.json();
     console.log(
       "response from geolocation",
-      data.results[0].components.country
+      data.results[0].components.country +
+        "" +
+        data.results[0].components.city_district
     );
     if (data.error) {
       errorMsg.innerHTML = "not possible to retrieve the location";
@@ -285,10 +261,10 @@ async function getAddress(lat, lon, onSuccess) {
       const city = data.results[0].components.city_district;
       const country = data.results[0].components.country;
       onSuccess(city, country);
-      console.log("location steet", city + " " + country);
       return city, country;
     }
   } catch (error) {
+    console.log("erroro in city and country", error);
     alert("Not possible retrieve the city and street ");
   }
 }
