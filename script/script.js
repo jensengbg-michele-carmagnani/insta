@@ -10,12 +10,13 @@ if ("serviceWorker" in navigator) {
 }
 
 window.addEventListener("load", () => {
-  notifyMe();
   console.log("navigator", navigator);
   if ("mediaDevices" in navigator) {
     cameraSettings();
   }
 });
+notifyMe();
+notifyPic();
 
 function cameraSettings() {
   let btnShowCamera = document.querySelector(".show-camera");
@@ -89,14 +90,14 @@ function cameraSettings() {
     let videoTrack = tracks[0];
     let capture = new ImageCapture(videoTrack);
     let blob = await capture.takePhoto();
-    let imgUlr = URL.createObjectURL(blob);
+    let imgUrl = URL.createObjectURL(blob);
 
     //get the address function
     // photo.src = imgUlr;
 
     findLocation((city, country) => {
       gallery.innerHTML += `<section class="card-img">
-                                <img class="snapShot" src="${imgUlr}" alt="">
+                                <img class="snapShot" src="${imgUrl}" alt="">
                                 <article class="info-pic">
                                     <p>City<br>${city}</p>
                                     <p>Country<br>${country}</p>
@@ -196,6 +197,7 @@ function notifyMe() {
       // default
       console.log("Notification: user decline to answer");
     }
+
     //show notification
     let btnShowNotification = document.querySelector(".showNotificationButton");
     btnShowNotification.addEventListener("click", () => {
@@ -205,6 +207,52 @@ function notifyMe() {
       }
       const options = {
         body: "Now you can recieve notification!",
+        icon: "./img/inst-512.png",
+      };
+      let notif = new Notification("Hello Michele", options);
+      navigator.serviceWorker.ready.then((reg) =>
+        reg.showNotification("Reminder", options)
+      );
+      notif.addEventListener("show", () => {
+        console.log("Show notification");
+      });
+      notif.addEventListener("click", () => {
+        console.log("user clicked on notification");
+      });
+    });
+  });
+}
+
+function notifyPic() {
+  console.log("you are in notify funk");
+  let notificationPermission = false;
+
+  const btnAskPermission = document.querySelector(".askPermissionBtn");
+
+  // allow notification
+  btnAskPermission.addEventListener("click", async () => {
+    console.log("permission");
+    const answer = await Notification.requestPermission();
+    if (answer == "granted") {
+      notificationPermission = true;
+      console.log("notification permission Granted");
+    } else if (answer == "denied") {
+      console.log("Notification : user denied notification");
+    } else {
+      // default
+      console.log("Notification: user decline to answer");
+    }
+
+    //show notification
+    let btnSnapshotNotify = document.querySelector(".snapshot");
+    btnSnapshotNotify.addEventListener("click", async () => {
+      if (!notificationPermission) {
+        console.log("we do not have permission to show notification");
+        return;
+      }
+
+      const options = {
+        body: "This is your Snapshot",
         icon: "./img/inst-512.png",
       };
       let notif = new Notification("Hello Michele", options);

@@ -1,4 +1,5 @@
 {
+   "test-api-request":"https://api.opencagedata.com/geocode/v1/json?key=accf8ffee4454813b62676aeb9faa061&q=51.952659%2C+7.632473&pretty=1&no_annotations=1",
   "documentation" : "https://opencagedata.com/api",
   "licenses" : [
      {
