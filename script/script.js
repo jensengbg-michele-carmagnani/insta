@@ -196,7 +196,6 @@ function cameraSettings() {
 // notifications setting
 
 function notifyPic() {
-  console.log("you are in notify funk");
   let notificationPermission = false;
 
   const btnAskPermission = document.querySelector(".askPermissionBtn");
@@ -214,7 +213,7 @@ function notifyPic() {
       // default
       console.log("Notification: user decline to answer");
     }
-    getSubsciption();
+    // getSubsciption();
     //show notification for recording
 
     btnStartRecording.addEventListener("click", async () => {
@@ -265,31 +264,32 @@ function notifyPic() {
   });
 }
 
-async function getSubsciption() {
-  const subscription = {
-    endpoint: "https://push-notifications-api.herokuapp.com/api/notifications/save",
-    keys: {
-      auth: ".....",
-      p256dh: ".....",
-    },
-  };
-  try {
-    const response = await fetch(
-      "https://push-notifications-api.herokuapp.com/api/notifications/send",
-      {
-        method: "POST",
-        body: JSON.stringify(subscription),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
-    const data = response.json();
-    console.log("subscripiton", data);
-  } catch (error) {
-    alert("It was not possible to get the subscription", error);
-  }
-}
+// async function getSubsciption() {
+//   const subscription = {
+//     endpoint:
+//       "https://push-notifications-api.herokuapp.com/api/notifications/save",
+//     keys: {
+//       auth: ".....",
+//       p256dh: ".....",
+//     },
+//   };
+//   try {
+//     const response = await fetch(
+//       "https://push-notifications-api.herokuapp.com/api/notifications/send",
+//       {
+//         method: "POST",
+//         body: JSON.stringify(subscription),
+//         headers: {
+//           "Content-Type": "application/json",
+//         },
+//       }
+//     );
+//     const data = response.json();
+//     console.log("subscripiton", data);
+//   } catch (error) {
+//     alert("It was not possible to get the subscription", error);
+//   }
+// }
 // Get adreass throughout the reverese geocoding
 async function getAddress(lat, lon, onSuccess) {
   try {

@@ -57,7 +57,7 @@ h2 {
   padding: 0.3rem;
   border-radius: 3rem;
   width: 200px;
-  height: 350px;
+  height: 370px;
   background-color: #fff;
   justify-self: center;
 }
@@ -66,10 +66,14 @@ h2 {
   font-size: large;
 }
 .info-pic {
+  border: 1px dotted crimson;
+  border-color: #3653b4;
   margin-top: 0.3rem;
   margin-bottom: 0.3rem;
   background-color: rgb(240, 240, 240);
   border-radius: 0.5rem;
+  width: 90%;
+  
 }
 .info-pic > p {
   text-align: center;
@@ -78,7 +82,7 @@ img {
   width: 100px;
   height: 100px;
   border-radius: 999rem;
-  border: 2px solid rgb(26, 161, 8);
+  border: 2px solid rgb(8, 74, 161);
 }
 
 /* buttons */
