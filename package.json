@@ -1,0 +1,20 @@
+{
+  "name": "pwa-project",
+  "version": "1.0.0",
+  "description": "Instablam",
+  "main": "script/script.js",
+  "scripts": {
+    "deploy": "surge . --domain insta-pwa.surge.sh",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jensengbg-michele-carmagnani/insta.git"
+  },
+  "author": "Michele",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jensengbg-michele-carmagnani/insta/issues"
+  },
+  "homepage": "https://github.com/jensengbg-michele-carmagnani/insta#readme"
+}

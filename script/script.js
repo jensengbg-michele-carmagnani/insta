@@ -10,16 +10,15 @@ if ("serviceWorker" in navigator) {
 }
 
 let btnShowCamera = document.querySelector(".show-camera");
-  let btnSnapshot = document.querySelector(".snapshot");
-  let btnStopCamera = document.querySelector(".stop-camera");
-  let errorMsg = document.querySelector(".error-msg");
-  let gallery = document.querySelector(".gallery");
-  let btnStartRecording = document.querySelector(".start-recording");
-  let btnStopRecording = document.querySelector(".stop-recording");
-  let downloadLink = document.querySelector(".download-link");
-  let btnChangeFacing = document.querySelector(".change-facing");
+let btnSnapshot = document.querySelector(".snapshot");
+let btnStopCamera = document.querySelector(".stop-camera");
+let errorMsg = document.querySelector(".error-msg");
+let gallery = document.querySelector(".gallery");
+let btnStartRecording = document.querySelector(".start-recording");
+let btnStopRecording = document.querySelector(".stop-recording");
+let downloadLink = document.querySelector(".download-link");
+let btnChangeFacing = document.querySelector(".change-facing");
 window.addEventListener("load", () => {
-  
   console.log("navigator", navigator);
   if ("mediaDevices" in navigator) {
     cameraSettings();
@@ -29,8 +28,6 @@ window.addEventListener("load", () => {
 notifyPic();
 
 function cameraSettings() {
-  
-
   let stream;
   let facing = "environment";
 
@@ -69,8 +66,7 @@ function cameraSettings() {
     if (facing == "environment") {
       (facing = "user"), (btnChangeFacing.innerHTML = "Show environment");
     } else {
-      (facing = "environment"),
-        (btnChangeFacing.innerHTML = "Show User ");
+      (facing = "environment"), (btnChangeFacing.innerHTML = "Show User ");
     }
     btnStopCamera.click();
     btnShowCamera.click();
@@ -218,8 +214,9 @@ function notifyPic() {
       // default
       console.log("Notification: user decline to answer");
     }
+    getSubsciption();
     //show notification for recording
-    
+
     btnStartRecording.addEventListener("click", async () => {
       if (!notificationPermission) {
         console.log("we do not have permission to show notification");
@@ -268,6 +265,31 @@ function notifyPic() {
   });
 }
 
+async function getSubsciption() {
+  const subscription = {
+    endpoint: "https://push-notifications-api.herokuapp.com/api/notifications/save",
+    keys: {
+      auth: ".....",
+      p256dh: ".....",
+    },
+  };
+  try {
+    const response = await fetch(
+      "https://push-notifications-api.herokuapp.com/api/notifications/send",
+      {
+        method: "POST",
+        body: JSON.stringify(subscription),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    const data = response.json();
+    console.log("subscripiton", data);
+  } catch (error) {
+    alert("It was not possible to get the subscription", error);
+  }
+}
 // Get adreass throughout the reverese geocoding
 async function getAddress(lat, lon, onSuccess) {
   try {
