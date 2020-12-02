@@ -114,7 +114,7 @@ function cameraSettings() {
 
     findLocation((city, country) => {
       gallery.innerHTML += `<section class="card-img">
-                                <img class="snapShot" src="${imgUrl}" alt="">
+                                <img class="snap-shot" src="${imgUrl}" alt="">
                                 <article class="info-pic">
                                     <p><span class="location-info">City</span><br>${city}</p>
                                     <p><span class="location-info">Country</span><br>${country}</p>

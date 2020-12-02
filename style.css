@@ -77,8 +77,8 @@ h2 {
 .info-pic > p {
   text-align: center;
 }
-img {
-  aspect-ratio: attr(100%) / attr(100%);
+.card-img .snap-shot{
+  aspect-ratio: initial / inherit;
   height: 100px;
   width: 55px;
   border-radius: 999rem;
@@ -181,7 +181,7 @@ img {
 .download-recording {
   cursor: pointer;
   border: 0;
-  aspect-ratio: attr(100%) / attr(100%);
+  aspect-ratio: inherit / inherit;
   width: 64px;
   height: 64px;
 }

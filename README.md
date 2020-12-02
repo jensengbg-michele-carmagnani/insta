@@ -31,6 +31,7 @@ The application allow you to take picture and store them in a gallery, get geolo
 | ----------------- | ----- |
 | Performace        | 100% |
 | Best Practice     | 93%   |
+| Accessibility     | 100%   |
 | PWA Optimized     | 100%  |
 
 ##### Created by : Michele
