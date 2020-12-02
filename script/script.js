@@ -126,6 +126,7 @@ function cameraSettings() {
                               </section>`;
       downloadImg = document.querySelector(".downloadImg");
       downloadImg.download = "img.jpeg";
+      console.log("find location", city + "" + country);
 
       // remove photos
       let buttons = document.querySelectorAll(".remove");

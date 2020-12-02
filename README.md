@@ -6,24 +6,32 @@ The application allow you to take picture and store them in a gallery, get geolo
 
 ## web-browser tested
 
-| Browser         | Able to download | Geolocation | MediaDevices | Notification | Offline     git | Push    |
+| Browser         | Able to download | Geolocation | MediaDevices | Notification | Offline     | Push    |
 | --------------- | ---------------- | ----------- | ------------ | ------------ | ----------- |----------- |
-| Desktop Chrome  | ✔️               | Inte testat | Inte testat  | Inte testat  | Inte testat | Inte testat | Inte testat |
-| Mobil Chrome    | ✔️               | Inte testat | Inte testat  | Inte testat  | Inte testat | Inte testat | Inte testat |
-| Desktop Firefox | ⛔               | Inte testat | Inte testat  | Inte testat  | Inte testat | Inte testat | Inte testat |
-| Mobil Firefox   | ✔️               | Inte testat | Inte testat  | Inte testat  | Inte testat | Inte testat | Inte testat |
-| Desktop Safari  | ❔               | Inte testat | Inte testat  | Inte testat  | Inte testat | Inte testat | Inte testat |
-| Mobil Safari    | ✔️               | Inte testat | Inte testat  | Inte testat  | Inte testat | Inte testat | Inte testat |
-| Desktop Edge    | ✔️               | Inte testat | Inte testat  | Inte testat  | Inte testat | Inte testat | Inte testat |
-| Mobil Edge      | ✔️               | Inte testat | Inte testat  | Inte testat  | Inte testat | Inte testat | Inte testat |
+| Desktop Chrome  | ✔️                | ✔️           | ✔️            | ✔️            | ✔️           | ✔️          |  
+|
+| Mobil Chrome    | ✔️                | ✔️           | ✔️            | ✔️            | ✔️           | ✔️          |  
+|
+| Desktop Firefox | ⛔               | ✔️           |  ⛔           |   ✔️          |  ✔️          |  ✔️         | 
+|
+| Mobil Firefox   | ✔️               | ⛔           | ⛔            | ⛔           | ⛔           | ⛔         | 
+|
+| Desktop Safari  | ⛔               | ⛔           | ⛔           | ⛔            | ⛔          | ⛔         | 
+|
+| Mobil Safari    | ✔️               | ⛔            | ⛔           | ⛔            | ⛔          | ⛔         | 
+|
+| Desktop Edge    | ✔️               | Inte testat | Inte testat  | Inte testat  | Inte testat | Inte testat | 
+|
+| Mobil Edge      | ✔️               | Inte testat | Inte testat  | Inte testat  | Inte testat | Inte testat |  
+|
 
 ## Lighthouse
 
 | Kategori          | Poäng |
 | ----------------- | ----- |
-| Fast and reliable | 3 / 3 |
-| Installable       | 3 / 3 |
-| PWA Optimized     | 7 / 8 |
+| Performace        | 100% |
+| Best Practice     | 93%   |
+| PWA Optimized     | 100%  |
 
 ##### Created by : Michele
 

@@ -13,7 +13,7 @@ h2,
 h3,
 h4 {
   margin: 0;
-  font-family: 'Texturina', serif;
+  font-family: "Texturina", serif;
 }
 video {
   width: 320px;
@@ -61,7 +61,7 @@ h2 {
   background-color: #fff;
   justify-self: center;
 }
-.location-info{
+.location-info {
   font-weight: 800;
   font-size: large;
 }
@@ -73,14 +73,14 @@ h2 {
   background-color: rgb(240, 240, 240);
   border-radius: 0.5rem;
   width: 90%;
-  
 }
 .info-pic > p {
   text-align: center;
 }
 img {
-  width: 100px;
+  aspect-ratio: attr(100%) / attr(100%);
   height: 100px;
+  width: 55px;
   border-radius: 999rem;
   border: 2px solid rgb(8, 74, 161);
 }
@@ -166,10 +166,24 @@ img {
   display: flex;
   justify-content: center;
   align-items: center;
+  text-decoration: none;
+}
+.downloadImg {
+  text-decoration: none;
+  color: #3653b4;
+  /* transition: [property][duration][timing-function][delay]; */
+  transition: all 0.5s ease-in;
+}
+.downloadImg:hover {
+  font-size: 18px;
+  color: #ff1654;
 }
 .download-recording {
   cursor: pointer;
   border: 0;
+  aspect-ratio: attr(100%) / attr(100%);
+  width: 64px;
+  height: 64px;
 }
 
 @media screen and (max-width: 870px) {
