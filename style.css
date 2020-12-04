@@ -80,7 +80,7 @@ h2 {
 .card-img .snap-shot{
   aspect-ratio: initial / inherit;
   height: 100px;
-  width: 55px;
+  width: 85px;
   border-radius: 999rem;
   border: 2px solid rgb(8, 74, 161);
 }
@@ -182,8 +182,8 @@ h2 {
   cursor: pointer;
   border: 0;
   aspect-ratio: inherit / inherit;
-  width: 64px;
-  height: 64px;
+  width: 128px;
+  height: 128px;
 }
 
 @media screen and (max-width: 870px) {

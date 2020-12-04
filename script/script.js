@@ -8,6 +8,8 @@ if ("serviceWorker" in navigator) {
       console.log("Service worker registration error:", error.event);
     });
 }
+import { findLocation } from "./dist/findLocation.js";
+import { notifyPic } from "./dist/notification.js";
 
 let btnShowCamera = document.querySelector(".show-camera");
 let btnSnapshot = document.querySelector(".snapshot");
@@ -27,7 +29,7 @@ window.addEventListener("load", () => {
 
 notifyPic();
 
-function cameraSettings() {
+export function cameraSettings() {
   let stream;
   let facing = "environment";
 
@@ -124,7 +126,7 @@ function cameraSettings() {
                                 </article>
                                   <button class="remove btn-active-delete">Delete</button>
                               </section>`;
-      downloadImg = document.querySelector(".downloadImg");
+      let downloadImg = document.querySelector(".downloadImg");
       downloadImg.download = "img.jpeg";
       console.log("find location", city + "" + country);
 
@@ -192,152 +194,4 @@ function cameraSettings() {
       errorMsg.innerHTML = "No recording to stop.";
     }
   });
-}
-
-// notifications setting
-
-function notifyPic() {
-  let notificationPermission = false;
-
-  const btnAskPermission = document.querySelector(".askPermissionBtn");
-
-  // allow notification
-  btnAskPermission.addEventListener("click", async () => {
-    console.log("permission");
-    const answer = await Notification.requestPermission();
-    if (answer == "granted") {
-      notificationPermission = true;
-      console.log("notification permission Granted");
-    } else if (answer == "denied") {
-      console.log("Notification : user denied notification");
-    } else {
-      // default
-      console.log("Notification: user decline to answer");
-    }
-    // getSubsciption();
-    //show notification for recording
-
-    btnStartRecording.addEventListener("click", async () => {
-      if (!notificationPermission) {
-        console.log("we do not have permission to show notification");
-        return;
-      }
-
-      const options = {
-        body: "You are now recording!",
-        icon: "./img/inst-512.png",
-      };
-      let notif = new Notification("Hello Michele", options);
-      navigator.serviceWorker.ready.then((reg) =>
-        reg.showNotification("Reminder", options)
-      );
-      notif.addEventListener("show", () => {
-        console.log("Show notification");
-      });
-      notif.addEventListener("click", () => {
-        console.log("user clicked on notification");
-      });
-    });
-
-    //show notification for pic
-    let btnSnapshotNotify = document.querySelector(".snapshot");
-    btnSnapshotNotify.addEventListener("click", async () => {
-      if (!notificationPermission) {
-        console.log("we do not have permission to show notification");
-        return;
-      }
-
-      const options = {
-        body: "This is your Snapshot",
-        icon: "./img/inst-512.png",
-      };
-      let notif = new Notification("Hello Michele", options);
-      navigator.serviceWorker.ready.then((reg) =>
-        reg.showNotification("Reminder", options)
-      );
-      notif.addEventListener("show", () => {
-        console.log("Show notification");
-      });
-      notif.addEventListener("click", () => {
-        console.log("user clicked on notification");
-      });
-    });
-  });
-}
-
-// async function getSubsciption() {
-//   const subscription = {
-//     endpoint:
-//       "https://push-notifications-api.herokuapp.com/api/notifications/save",
-//     keys: {
-//       auth: ".....",
-//       p256dh: ".....",
-//     },
-//   };
-//   try {
-//     const response = await fetch(
-//       "https://push-notifications-api.herokuapp.com/api/notifications/send",
-//       {
-//         method: "POST",
-//         body: JSON.stringify(subscription),
-//         headers: {
-//           "Content-Type": "application/json",
-//         },
-//       }
-//     );
-//     const data = response.json();
-//     console.log("subscripiton", data);
-//   } catch (error) {
-//     alert("It was not possible to get the subscription", error);
-//   }
-// }
-// Get adreass throughout the reverese geocoding
-async function getAddress(lat, lon, onSuccess) {
-  try {
-    const url = `https://api.opencagedata.com/geocode/v1/json?q=${lat}+${lon}&key=accf8ffee4454813b62676aeb9faa061`;
-    const response = await fetch(url);
-    const data = await response.json();
-    console.log(
-      "response from geolocation",
-      data.results[0].components.country +
-        "" +
-        data.results[0].components.city_district
-    );
-    if (data.error) {
-      errorMsg.innerHTML = "not possible to retrieve the location";
-    } else {
-      const city = data.results[0].components.city_district;
-      const country = data.results[0].components.country;
-      onSuccess(city, country);
-      return city, country;
-    }
-  } catch (error) {
-    console.log("erroro in city and country", error);
-    alert("Not possible retrieve the city and street ");
-  }
-}
-
-// Geolocation of the photo
-let geo = navigator.geolocation;
-
-function findLocation(onSuccess) {
-  if ("geolocation" in navigator) {
-    geo.getCurrentPosition(
-      (pos) => {
-        let coords = pos.coords;
-        let lat = coords.latitude;
-        let lon = coords.longitude;
-        console.log("lat lon", lat, lon);
-        getAddress(lat, lon, onSuccess);
-      },
-      (error) => {
-        console.log("Could not get position", error);
-        console.log("it is not possible to retrieve the position.");
-        errorMsg.innerHTML =
-          "It is not possible to retrieve the position please allow the geolocalisation .";
-      }
-    );
-  } else {
-    console.log(`the device doesen't access to the geolocation.`);
-  }
 }
