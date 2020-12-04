@@ -22,7 +22,9 @@ The application allow you to take picture and store them in a gallery, get geolo
 | Kategori      | Poäng |
 | ------------- | ----- |
 | Performace    | 100%  |
-| Best Practice | 93%   |
+| Best Practice | 99
+
+%   |
 | Accessibility | 100%  |
 | PWA Optimized | 100%  |
 
